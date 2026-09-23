@@ -1,33 +1,58 @@
 using System;
+
 namespace Task3
 {
-   class Program
-   {
+    class Program
+    {
+        public static int[] GetUnique(int[] source)
+        {
+            int[] result = new int[source.Length];
+            int count = 0;
 
-    static bool IsExists(int[] a, int b)
-    {      
-      foreach(int el in a)
-        if (el==b) return true;
-      return false;
+            foreach (int number in source)
+            {
+                bool exists = false;
+
+                for (int i = 0; i < count; i++)
+                {
+                    if (result[i] == number)
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                {
+                    result[count] = number;
+                    count++;
+                }
+            }
+
+            int[] unique = new int[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                unique[i] = result[i];
+            }
+
+            return unique;
+        }
+
+        static void Main()
+        {
+            int[] numbers = new int[10];
+            Random random = new Random();
+
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                numbers[i] = random.Next(1, 6);
+            }
+
+            int[] unique = GetUnique(numbers);
+
+            Console.WriteLine($"Исходный:  {string.Join(", ", numbers)}");
+            Console.WriteLine($"Уникальные: {string.Join(", ", unique)}");
+        }
     }
-
-     static void Main()
-     {
-        int[] arr=new int[10];
-        Random random=new Random();
-        for(int i=0;i<arr.Length;i++)
-          arr[i]=random.Next(1,6);
-        System.Console.WriteLine(string.Join(", ", arr)); 
-        int j=0;       
-        int[] t=new int[0];
-        foreach(int el in arr)
-          if (!IsExists(t, el))
-          {
-            Array.Resize(ref t,j+1);//Вот так не хорошо!
-            t[j]=el;
-            j++;
-          }
-           System.Console.WriteLine(string.Join(", ", t));
-     }
-   }
 }

@@ -1,52 +1,52 @@
 using System;
-using System.Globalization;
 
 namespace Task1.Statistics
 {
-    class Program 
+    class Program
     {
         static void Main(string[] args)
         {
-            Random random = new Random(100);
+            Random random = new Random();
             int[] numbers = new int[10];
 
             for (int i = 0; i < numbers.Length; i++)
             {
                 numbers[i] = random.Next(1, 101);
             }
+
             Console.WriteLine($"Массив: {string.Join(", ", numbers)}");
 
             int sum = 0;
             double product = 1;
-            int count = 0;
+            int evenCount = 0;
 
-            foreach(int num in numbers)
+            foreach (int number in numbers)
             {
-                sum += num;
-                product *= num;
-                if (num % 2 == 0)
+                sum += number;
+                product *= number;
+
+                if (number % 2 == 0)
                 {
-                    count++;
+                    evenCount++;
                 }
             }
-            
+
             double average = (double)sum / numbers.Length;
 
             int greaterCount = 0;
-            foreach(int num in numbers)
+
+            foreach (int number in numbers)
             {
-                if (num > average)
+                if (number > average)
                 {
                     greaterCount++;
                 }
             }
 
-            Console.WriteLine($"Сумма {sum}");
-            Console.WriteLine($"Произведение {product:E2}");
-            Console.WriteLine($"Четных чисел {count}");
-            Console.WriteLine($"Больше среднего ({Math.Round(average, 1)}): {greaterCount}");
-
+            Console.WriteLine($"Сумма: {sum}");
+            Console.WriteLine($"Произведение: {product:E2}");
+            Console.WriteLine($"Чётных чисел: {evenCount}");
+            Console.WriteLine($"Больше среднего ({average:F1}): {greaterCount}");
         }
     }
-
 }
